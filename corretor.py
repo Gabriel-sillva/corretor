@@ -8,7 +8,7 @@ genai.configure(api_key=api_key)
 # Configuração da página para celular
 st.set_page_config(page_title="Corretor ENEM", page_icon="📝", layout="centered")
 
-st.title("📝 Corretor de Redação ENEM (Grátis)")
+st.title("📝 Corretor de Redação ENEM")
 st.write("Insira o tema e o seu texto abaixo para uma correção sem vícios.")
 
 # --- CONTROLE DE FLUXO E MEMÓRIA ---
@@ -64,7 +64,7 @@ if not st.session_state.corrigido:
                 """
                 try:
                     model = genai.GenerativeModel(
-                        model_name="gemini-1.5-flash-latest", # Adicionando o -latest para o Google encontrar na API v1beta
+                        model_name="gemini-2.0-flash", # Modelo estável oficial, grátis e sem o bug do 404
                         generation_config={"temperature": 0.2}
                     )
                     response = model.generate_content(prompt_sistema)
