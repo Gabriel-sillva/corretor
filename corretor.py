@@ -39,9 +39,9 @@ if st.button("🚀 Corrigir Redação", use_container_width=True):
             """
             
             try:
-                # Usando o modelo Gemini 1.5 Pro para análise textual profunda
+                # Usando o modelo atualizado para análise textual profunda
                 model = genai.GenerativeModel(
-                    model_name="gemini-1.5-pro",
+                    model_name="gemini-2.5-pro",
                     generation_config={"temperature": 0.2} # Temperatura baixa para não viciar
                 )
                 
