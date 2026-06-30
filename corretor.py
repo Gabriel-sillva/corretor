@@ -39,9 +39,9 @@ if st.button("🚀 Corrigir Redação", use_container_width=True):
             """
             
             try:
-                # Usando o modelo atualizado para análise textual profunda
+                # Usando o modelo Flash que é 100% gratuito e ultra rápido
                 model = genai.GenerativeModel(
-                    model_name="gemini-2.5-pro",
+                    model_name="gemini-2.5-flash",
                     generation_config={"temperature": 0.2} # Temperatura baixa para não viciar
                 )
                 
