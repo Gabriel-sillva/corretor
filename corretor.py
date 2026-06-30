@@ -1,20 +1,17 @@
 import streamlit as st
-import openai
-
-# 1. Configuração da API
-# Substitua pela sua chave real ou configure nos segredos do Streamlit
+import google.generativeai as genai
 
 # Puxa a chave de forma segura das configurações ocultas do Streamlit
 api_key = st.secrets["api_key"]
-client = openai.OpenAI(api_key=api_key)
+genai.configure(api_key=api_key)
 
 # Configuração da página para celular
 st.set_page_config(page_title="Corretor ENEM", page_icon="📝", layout="centered")
 
-st.title("📝 Corretor de Redação ENEM")
+st.title("📝 Corretor de Redação ENEM (Grátis)")
 st.write("Insira o tema e o seu texto abaixo para uma correção sem vícios.")
 
-# 2. Entradas da sua esposa (Interface no celular)
+# Entradas da sua esposa (Interface no celular)
 tema = st.text_input("Tema da Redação:", placeholder="Ex: O impacto das IAs na educação...")
 texto_redacao = st.text_area("Cole sua Redação aqui:", height=250, placeholder="Digite ou cole o texto completo...")
 
@@ -25,8 +22,8 @@ if st.button("🚀 Corrigir Redação", use_container_width=True):
     else:
         with st.spinner("Analisando sua redação rigidamente... Aguarde."):
             
-            # 3. O prompt com os seus critérios 1, 2, 3 e 4
-            prompt_sistema = """
+            # O prompt com os seus critérios 1, 2, 3 e 4
+            prompt_sistema = f"""
             Você é um corretor de redação do ENEM extremamente rigoroso e analítico. 
             Analise o texto enviado estritamente sob os seguintes critérios:
             
@@ -36,22 +33,22 @@ if st.button("🚀 Corrigir Redação", use_container_width=True):
             CORREÇÃO 4: Demonstração de conhecimento dos mecanismos linguísticos (Coesão e conectivos).
             
             Retorne a análise dividida exatamente nesses 4 tópicos (CORREÇÃO 1, 2, 3 e 4), apontando os erros de forma direta, sem elogios ou condescendência, e dê uma nota estimada de 0 a 200 para cada critério.
+
+            Tema da Redação: {tema}
+            Texto da Redação: {texto_redacao}
             """
             
             try:
-                # Requisição limpa para a IA (Evita o vício)
-                response = client.chat.completions.create(
-                    model="gpt-4o", 
-                    messages=[
-                        {"role": "system", "content": prompt_sistema},
-                        {"role": "user", "content": f"Tema: {tema}\n\nRedação:\n{texto_redacao}"}
-                    ],
-                    temperature=0.2
+                # Usando o modelo Gemini 1.5 Pro para análise textual profunda
+                model = genai.GenerativeModel(
+                    model_name="gemini-1.5-pro",
+                    generation_config={"temperature": 0.2} # Temperatura baixa para não viciar
                 )
                 
-                resultado = response.choices[0].message.content
+                response = model.generate_content(prompt_sistema)
+                resultado = response.text
                 
-                # 4. Exibe o resultado na tela do celular
+                # Exibe o resultado na tela do celular
                 st.success("✨ Correção Concluída!")
                 st.markdown("### 📊 Resultado da Avaliação")
                 st.markdown(resultado)
