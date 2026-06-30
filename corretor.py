@@ -60,9 +60,9 @@ if not st.session_state.corrigido:
                 Texto da Redação: {texto_redacao}
                 """
                 try:
-                    # Usando o modelo Llama 3 70B pelo Groq (Grátis, rápido e sem travas de servidor)
+                   # Usando o modelo atualizado do Llama 3.3 (Ativo, grátis e ultra rápido)
                     completion = client.chat.completions.create(
-                        model="llama3-70b-8192",
+                        model="llama-3.3-70b-versatile",
                         messages=[{"role": "user", "content": prompt_sistema}],
                         temperature=0.2,
                     )
