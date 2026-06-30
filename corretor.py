@@ -72,7 +72,7 @@ if not st.session_state.corrigido:
                         linhas = resultado_bruto.split("\n")
                         linha_nota = [l for l in linhas if "NOTA_TOTAL:" in l][0]
                         st.session_state.nota_final = linha_nota.replace("NOTA_TOTAL:", "").strip()
-                        st.session_state.resultado_analise = "\n".join([l for l in lines if "NOTA_TOTAL:" not in l])
+                        st.session_state.resultado_analise = "\n".join([l for l in linhas if "NOTA_TOTAL:" not in l])
                     else:
                         st.session_state.nota_final = "N/A"
                         st.session_state.resultado_analise = resultado_bruto
