@@ -64,7 +64,7 @@ if not st.session_state.corrigido:
                 """
                 try:
                     model = genai.GenerativeModel(
-                        model_name="gemini-2.5-flash",
+                        model_name="gemini-1.5-flash", # Modelo com limites mais folgados por minuto
                         generation_config={"temperature": 0.2}
                     )
                     response = model.generate_content(prompt_sistema)
